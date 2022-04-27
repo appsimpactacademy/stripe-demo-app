@@ -6,6 +6,7 @@ class StripeService
   end
 
   def create_customer(data)
+    amount_to_be_paid = data[:no_of_sits].to_i * data[:workshop_fee]
     # create stripe customer
     customer = Stripe::Customer.create({
                  name: data[:full_name],
@@ -25,13 +26,19 @@ class StripeService
 
     # create stripe charge for customer
     charge = Stripe::Charge.create({
-              amount: (data[:no_of_sits].to_i * data[:workshop_fee]) * 100,
+              amount: (amount_to_be_paid) * 100,
               currency: 'usd',
               source: token.id,
               description: "Payment for #{data[:workshop_name]}",
             })
 
-
+    booking = WorkshopBooking.create(
+      stripe_customer_id: customer.id,
+      stripe_charge_id: charge.id,
+      tickets_booked: data[:no_of_sits].to_i,
+      amount_paid: amount_to_be_paid,
+      workshop_id: Workshop.first.id
+    )
     customer
   end
 end

@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_25_170413) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_27_134559) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "workshop_bookings", force: :cascade do |t|
+    t.string "stripe_customer_id"
+    t.string "stripe_charge_id"
+    t.integer "amount_paid"
+    t.integer "tickets_booked"
+    t.bigint "workshop_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["workshop_id"], name: "index_workshop_bookings_on_workshop_id"
+  end
 
   create_table "workshops", force: :cascade do |t|
     t.string "name"
@@ -28,4 +39,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_25_170413) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "workshop_bookings", "workshops"
 end

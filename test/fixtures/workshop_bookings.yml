@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stripe_customer_id: MyString
+  stripe_charge_id: MyString
+  amount_paid: 1
+  tickets_booked: 1
+  workshop: one
+
+two:
+  stripe_customer_id: MyString
+  stripe_charge_id: MyString
+  amount_paid: 1
+  tickets_booked: 1
+  workshop: two
