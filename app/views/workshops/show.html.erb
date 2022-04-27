@@ -1,0 +1,82 @@
+<p style="color: green"><%= notice %></p>
+
+<div class="row">
+  <div class="col-lg-8">
+    <div class="card shadow mb-3">
+      <div class="card-body">
+        <h4 class="card-title mb-2"><%= @workshop.name %></h4>
+        <div class="row mt-3">
+          <div class="col-lg-7">
+            <h4><span class="badge bg-primary"><%= @workshop.total_duration %></span></h4>
+            <h4><span class="badge bg-primary"><%= @workshop.daily_duration %></span></h4>
+          </div>
+          <div class="col-lg-5">
+            <h4>Total Sits: <span class="badge bg-primary"><%= @workshop.total_sits %></span></h4>
+            <h4>Remaining Sits: <span class="badge bg-primary"><%= @workshop.remaining_sits %></span></h4>
+            <h4>Registration fee: <span class="badge bg-primary">$ <%= @workshop.registration_fee %></span></h4>
+          </div>
+        </div>
+        
+        <p class="lead mt-3 mb-3"><%= @workshop.description %></p>
+        <%= link_to "Back to workshops", workshops_path, class: "btn btn-outline-danger btn-lg mt-3" %>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="card shadow mb-3">
+      <div class="card-body">
+        <h4 class="card-title mb-2">Reserve Your Sit Now!</h4>
+        <%= form_with url: :create_booking, data: { turbo: false } do |form| %>
+          <div class="form-group">
+            <%= form.label :full_name, class: 'mb-2 mt-2' %>
+            <%= form.text_field :full_name, class: "form-control", required: true %>
+          </div>
+          <div class="form-group">
+            <%= form.label :email, class: 'mb-2 mt-2' %>
+            <%= form.text_field :email, class: "form-control", required: true %>
+          </div>
+          <div class="form-group">
+            <%= form.label :contact_number, class: 'mb-2 mt-2' %>
+            <%= form.text_field :contact_number, class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= form.label :no_of_sits_you_want_to_book, class: 'mb-2 mt-2' %>
+            <%= form.number_field :no_of_sits, class: "form-control", min: 1, max: @workshop.remaining_sits %>
+          </div>
+
+          <h4 class="mt-4 mb-3">Card Details</h4>
+          <hr>
+          <div class="form-group">
+            <%= form.label :card_number, class: 'mb-2 mt-2' %>
+            <%= form.text_field :card_number, class: "form-control", maxlength: 16 %>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <%= form.label :cvv, class: 'mb-2 mt-2' %>
+                <%= form.text_field :cvv, class: "form-control", maxlength: 4 %>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="form-group">
+                <%= form.label :exp_month, class: 'mb-2 mt-2' %>
+                <%= form.number_field :month, class: "form-control", min: 1, max: 12 %>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="form-group">
+                <%= form.label :exp_year, class: 'mb-2 mt-2' %>
+                <%= form.number_field :year, class: "form-control", min: 2022, max: 2026 %>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-grid gap-2">
+            <%= form.submit 'Book Your Sits Now', class: "btn btn-outline-danger btn-lg mt-3" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

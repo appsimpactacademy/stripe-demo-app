@@ -1,0 +1,62 @@
+<%= form_with(model: workshop) do |form| %>
+  <% if workshop.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(workshop.errors.count, "error") %> prohibited this workshop from being saved:</h2>
+
+      <ul>
+        <% workshop.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block", class: "form-label mt-2 mb-1" %>
+    <%= form.text_field :name, class: "form-control form-control-lg" %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block", class: "form-label mt-2 mb-1" %>
+    <%= form.text_area :description, class: "form-control form-control-lg" %>
+  </div>
+
+  <div>
+    <%= form.label :start_date, style: "display: block", class: "form-label mt-2 mb-1" %>
+    <%= form.date_field :start_date, class: "form-control form-control-lg" %>
+  </div>
+
+  <div>
+    <%= form.label :end_date, style: "display: block", class: "form-label mt-2 mb-1" %>
+    <%= form.date_field :end_date, class: "form-control form-control-lg" %>
+  </div>
+
+  <div>
+    <%= form.label :start_time, style: "display: block", class: "form-label mt-2 mb-1" %>
+    <%= form.text_field :start_time, class: "form-control form-control-lg" %>
+  </div>
+
+  <div>
+    <%= form.label :end_time, style: "display: block", class: "form-label mt-2 mb-1" %>
+    <%= form.text_field :end_time, class: "form-control form-control-lg" %>
+  </div>
+
+  <div>
+    <%= form.label :total_sits, style: "display: block", class: "form-label mt-2 mb-1" %>
+    <%= form.number_field :total_sits, class: "form-control form-control-lg" %>
+  </div>
+
+  <div>
+    <%= form.label :remaining_sits, style: "display: block", class: "form-label mt-2 mb-1" %>
+    <%= form.number_field :remaining_sits, class: "form-control form-control-lg" %>
+  </div>
+
+  <div>
+    <%= form.label :registration_fee, style: "display: block", class: "form-label mt-2 mb-1" %>
+    <%= form.number_field :registration_fee, class: "form-control form-control-lg" %>
+  </div>
+
+  <div>
+    <%= form.submit class: "btn btn-primary btn-lg" %>
+  </div>
+<% end %>
